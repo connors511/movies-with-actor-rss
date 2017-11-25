@@ -58,7 +58,7 @@ class Controller extends BaseController
             ->flatten()
             ->unique()
             // Fetch movie details
-            ->map(function ($movie) use ($key, $ratelimit) {
+            ->map(function ($movie) use ($key, &$ratelimit) {
                 $url = "https://api.themoviedb.org/3/movie/{$movie->id}?api_key={$key}&language=en-US";
                 return Cache::remember($url, 600, function () use ($url, &$ratelimit) {
                     $client = new \GuzzleHttp\Client();
